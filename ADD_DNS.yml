@@ -1,21 +1,16 @@
 ---
-- name: adding DNS record
-  hosts: 192.168.80.5
+- hosts: 192.168.80.5
   tasks:
-    - win_shell: "dnscmd  . /recordadd {{ dns_dev_zone_fwd }} {{ vm_name }} A {{ ip }}"
+    - name: adding DNS record
+      win_shell: "dnscmd  . /recordadd {{ dns_dev_zone_fwd }} {{ vm_name }} A {{ ip }}"
 
-- name: IP Sections
-  tasks:
-    - ansible.builtin.set_fact:
-        ip_sections: "{{ ip.split('.') | list }}"
+    - name: IP Sections
+      ansible.builtin.set_fact:
+      ip_sections: "{{ ip.split('.') | list }}"
 
+    - name: DEV zone PTR
+      ansible.builtin.set_fact:
+      dns_dev_zone_ptr: "{{ ip_sections[2] }}.{{ ip_sections[1] }}.{{ ip_sections[0] }}.in-addr.arpa"
 
-- name: DEV zone PTR
-  tasks:
-    - ansible.builtin.set_fact:
-        dns_dev_zone_ptr: "{{ ip_sections[2] }}.{{ ip_sections[1] }}.{{ ip_sections[0] }}.in-addr.arpa"
-
-- name: Create REverse DNS records
-  hosts: 192.168.80.5
-  tasks:
-    - win_shell: "dnscmd . /RecordAdd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vm_name }}"
+    - name: Create REverse DNS records
+      win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vm_name }}"
