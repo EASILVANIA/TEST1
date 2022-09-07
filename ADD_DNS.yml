@@ -1,5 +1,6 @@
 ---
 - name: adding DNS record
+  hosts: 192.168.80.5
   tasks:
     - win_shell: "dnscmd  . /recordadd {{ dns_dev_zone_fwd }} {{ vm_name }} A {{ ip }}"
 
@@ -15,5 +16,6 @@
         dns_dev_zone_ptr: "{{ ip_sections[2] }}.{{ ip_sections[1] }}.{{ ip_sections[0] }}.in-addr.arpa"
 
 - name: Create REverse DNS records
+  hosts: 192.168.80.5
   tasks:
     - win_shell: "dnscmd . /RecordAdd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vm_name }}"
