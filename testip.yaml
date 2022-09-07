@@ -1,0 +1,16 @@
+---
+  - name: set cluster variables
+    hosts: webserver
+    tasks:
+      - ansible.builtin.set_fact:
+          IP_ADD: "{{ ansible_default_ipv4.address }}"
+          NET_MASK: "{{  ansible_default_ipv4.netmask}"
+          DGW: "{{ ansible_default_ipv4.gateway. ['gateway'] }}"
+          with_items: "{{ groups['webserver'] }}"
+          run_once: true
+
+  - name: Print IP address
+    hosts: webserver
+    become: true
+    tasks:
+      - ansible.builtin.debug: var=IP_ADD
