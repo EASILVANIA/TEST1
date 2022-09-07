@@ -1,6 +1,6 @@
 ---
   - name: set cluster variables
-    hosts: webserver
+    hosts: {{ webserver }}
     tasks:
       - ansible.builtin.set_fact:
           IP_ADD: "{{ ansible_default_ipv4.address }}"
@@ -10,7 +10,7 @@
           run_once: true
 
   - name: Print IP address
-    hosts: webserver
+    hosts: {{ webserver }}
     become: true
     tasks:
       - ansible.builtin.debug: var=IP_ADD
