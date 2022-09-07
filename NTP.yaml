@@ -3,7 +3,7 @@
   become: true
   
   vars:
-    ntp_server1:
+  ntp_server1:
 	ntp_server2:
 	ntp_server3:
 	ntp_server4:
