@@ -1,0 +1,24 @@
+---
+- hosts: all 
+  become: true
+  
+  vars:
+    ntp_server1:
+	ntp_server2:
+	ntp_server3:
+	ntp_server4:
+	
+  tasks:
+    - name: Check/install ntp client package
+	  yum:
+	   name=ntp
+	   state=present
+	   
+	- name: deploy ntp.conf to hosts
+	  template:
+	    src=/etc/ansible/templates/ntp.j2
+		dest=/etc/ntp.conf
+		owner=root
+		group=root
+		mode=0644
+		backup=yes
