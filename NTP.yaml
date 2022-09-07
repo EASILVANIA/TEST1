@@ -15,8 +15,8 @@
 	    state=present
 	   
 	- name: deploy ntp.conf to hosts
-	  template:
-	    src=/etc/ansible/templates/ntp.j2
+	  git:
+	    src=https://github.com/EASILVANIA/TEST1.git
 		  dest=/etc/ntp.conf
 		  owner=root
 		  group=root
