@@ -3,22 +3,28 @@
   become: true
   
   vars:
-  ntp_server1:
-	ntp_server2:
-	ntp_server3:
-	ntp_server4:
+    ntp_server1: 0.asia.pool.ntp.org
+		ntp_server2: 1.asia.pool.ntp.org
+		ntp_server3: 2.asia.pool.ntp.org
+		ntp_server4: 3.asia.pool.ntp.org
 	
   tasks:
-    - name: Check/install ntp client package
-	  yum:
-	   name=ntp
-	   state=present
+  - name: Check/install ntp client package
+ 	  yum:
+	    name=ntp
+	    state=present
 	   
 	- name: deploy ntp.conf to hosts
 	  template:
 	    src=/etc/ansible/templates/ntp.j2
-		dest=/etc/ntp.conf
-		owner=root
-		group=root
-		mode=0644
-		backup=yes
+		  dest=/etc/ntp.conf
+		  owner=root
+		  group=root
+		  mode=0644
+		  backup=yes
+		
+  - name: ensure ntpd is running and enabled
+    service:
+      name=ntpd
+	    state=restarted
+	    enabled=yes
