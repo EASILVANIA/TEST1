@@ -11,6 +11,7 @@
   tasks:
     - name: Check/install ntp client package
       apt:
+        update_cache=yes
         name=ntp
         state=present
 
