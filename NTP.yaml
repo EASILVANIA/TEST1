@@ -5,7 +5,7 @@
   ntp_server3: 2.asia.pool.ntp.org
   ntp_server4: 3.asia.pool.ntp.org
 
-- hosts: {{ ip }}
+- hosts: all
   become: true
   tasks:
     - name: Check/install ntp client package
