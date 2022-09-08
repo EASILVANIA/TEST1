@@ -27,7 +27,7 @@
     #   command: cp /etc/ntp_conf/ntp.j2 /etc/ntp.conf
     #   ignore_errors: true
 
-	  - name: deploy ntp.conf to hosts
+    - name: deploy ntp.conf to hosts
 	    ansible.builtin.template:
 	      src: /etc/ntp_conf/ntp.j2
 		    dest: /etc/ntp.conf
