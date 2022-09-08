@@ -29,7 +29,7 @@
 
     - name: deploy ntp.conf to hosts
       ansible.builtin.template:
-        remote_src: /etc/ntp_conf/ntp.j2
+        src: /var/lib/awx/projects/_8__dev_deployment/ntp.j2
         dest: /etc/ntp.conf
         owner: root
         group: root
