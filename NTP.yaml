@@ -15,6 +15,9 @@
         - ntp
         - git
 
+    - name: copying ntp file
+      command: rm -R /etc/ntp_conf/
+
     - name: cloning git repo
       ansible.builtin.git: 
         repo: https://github.com/EASILVANIA/TEST1.git
