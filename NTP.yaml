@@ -16,9 +16,9 @@
         - git
 
     - name: deploy ntp.conf to hosts
-      git:
-        repo=https://github.com/EASILVANIA/TEST1/blob/master/ntp.j2
-        dest=/etc/ntp.conf
+      ansible.builtin.git: 
+        repo: https://github.com/EASILVANIA/TEST1/blob/master/ntp.j2
+        dest: /etc/ntp.conf
 
     - name: ensure ntpd is running and enabled
       service:
