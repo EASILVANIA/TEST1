@@ -28,13 +28,13 @@
     #   ignore_errors: true
 
     - name: deploy ntp.conf to hosts
-	    ansible.builtin.template:
-	      src: /etc/ntp_conf/ntp.j2
-		    dest: /etc/ntp.conf
-	    	owner: root
-	    	group: root
-	    	mode: 0644
-		    backup: yes
+      ansible.builtin.template:
+        src: /etc/ntp_conf/ntp.j2
+        dest: /etc/ntp.conf
+        owner: root
+        group: root
+        mode: 0644
+        backup: yes
 
     - name: ensure ntpd is running and enabled
       service:
