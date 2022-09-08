@@ -1,10 +1,12 @@
 ---
-- name: cloning git repo 
-  hosts: localhost
+- hosts: localhost
   connection: local
-  ansible.builtin.git: 
-     repo: https://github.com/EASILVANIA/TEST1.git
-     dest: /etc/ansible/tmp
+  become: true
+  tasks:
+    - name: cloning git repo 
+      ansible.builtin.git: 
+        repo: https://github.com/EASILVANIA/TEST1.git
+        dest: /etc/ansible/tmp/
 
 - hosts: all
   become: true
