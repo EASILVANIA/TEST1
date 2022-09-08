@@ -16,7 +16,7 @@
 
     - name: deploy ntp.conf to hosts
       git:
-        src=https://github.com/EASILVANIA/TEST1.git/ntp.j2
+        repo=https://github.com/EASILVANIA/TEST1.git/ntp.j2
         dest=/etc/ntp.conf
         owner=root
         group=root
