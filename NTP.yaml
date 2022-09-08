@@ -20,8 +20,8 @@
         repo: https://github.com/EASILVANIA/TEST1.git
         dest: /etc/ntp_conf/
 
-   - name: copying ntp file
-     command: cp /etc/ntp_conf/ntp.j2 /etc/ntp.conf 
+    - name: copying ntp file
+      command: cp /etc/ntp_conf/ntp.j2 /etc/ntp.conf 
 
     - name: ensure ntpd is running and enabled
       service:
