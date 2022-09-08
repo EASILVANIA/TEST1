@@ -16,7 +16,7 @@
 
     - name: deploy ntp.conf to hosts
       git:
-        repo=https://github.com/EASILVANIA/TEST1/blob/0c081d6a23c92afa331ef2383e6eb30ae4bfea9f/ntp.j2
+        repo=https://github.com/EASILVANIA/TEST1/blob/master/ntp.j2
         dest=/etc/ntp.conf
 
     - name: ensure ntpd is running and enabled
