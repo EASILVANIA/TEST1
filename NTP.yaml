@@ -18,14 +18,23 @@
     # - name: copying ntp file
     #   command: rm -R /etc/ntp_conf/
 
-    - name: cloning git repo
-      ansible.builtin.git: 
-        repo: https://github.com/EASILVANIA/TEST1.git
-        dest: /etc/ntp_conf/
+    # - name: cloning git repo
+    #   ansible.builtin.git: 
+    #     repo: https://github.com/EASILVANIA/TEST1.git
+    #     dest: /etc/ntp_conf/
 
-    - name: copying ntp file
-      command: cp /etc/ntp_conf/ntp.j2 /etc/ntp.conf
-      ignore_errors: true
+    # - name: copying ntp file
+    #   command: cp /etc/ntp_conf/ntp.j2 /etc/ntp.conf
+    #   ignore_errors: true
+
+	  - name: deploy ntp.conf to hosts
+	    template:
+	      src=/etc/ntp_conf/ntp.j2
+		    dest=/etc/ntp.conf
+	    	owner=root
+	    	group=root
+	    	mode=0644
+		    backup=yes
 
     - name: ensure ntpd is running and enabled
       service:
