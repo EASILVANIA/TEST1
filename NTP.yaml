@@ -9,7 +9,7 @@
   become: true
   tasks:
     - name: Check/install ntp client package
-      yum:
+      apt:
         name=ntp
         state=present
 
