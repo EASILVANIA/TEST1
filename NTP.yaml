@@ -10,7 +10,7 @@
 
   tasks:
     - name: Check/install ntp client package
-      apt:
+      yum:
         update_cache=yes
         name=ntp
         state=present
