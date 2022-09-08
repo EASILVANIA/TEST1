@@ -10,9 +10,10 @@
 
   tasks:
     - name: Check/install ntp client package
-      package:
-        name=ntp
-        state=present
+      package: name={{item}} state=present update_cache=yes
+        with_items:
+          - ntp
+          - git
 
     - name: deploy ntp.conf to hosts
       git:
