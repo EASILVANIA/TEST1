@@ -14,9 +14,14 @@
         dest: /etc/ntp.conf
         insertafter: '^restrict ::1'
         line: server 10.25.33.9
-              server 10.25.33.10
-              server 10.25.76.18
-              server 10.47.90.18
+        insertafter: '^server 10.25.33.9'
+        line: server 10.25.33.10
+        insertafter: '^server 10.25.33.10'
+        line: server 10.25.33.18
+        insertafter: '^server 10.25.33.18'
+        line: server 10.25.76.18
+        insertafter: '^server 10.25.76.10'
+        line: server 10.47.90.18
 
     - name: ensure ntpd is running and enabled
       service:
