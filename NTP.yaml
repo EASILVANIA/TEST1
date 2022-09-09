@@ -1,6 +1,6 @@
 ---
 - name: Editing file using lineinfile module
-  hosts: {{ ip }}
+  hosts: "{{ ip }}"
   tasks:
     - name: removing network ntp.conf file
       ansible.builtin.lineinfile:
