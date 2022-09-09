@@ -3,20 +3,20 @@
   hosts: all
   tasks:
     - name: removing network ntp.conf file
-	    ansible.builtin.lineinfile:
-	    state: absent
-		  dest: /etc/ntp.conf
-		  regexp: '^network'
+      ansible.builtin.lineinfile:
+      state: absent
+      dest: /etc/ntp.conf
+      regexp: '^network'
 
     - name: adding new line to ntp.conf
       ansible.builtin.lineinfile:
-	    state: present
-		  dest: /etc/ntp.conf
-		  insertafter: '^restrict ::1'
-		  line: server 10.25.33.9
-		        server 10.25.33.10
-		        server 10.25.76.18
-		        server 10.47.90.18
+      state: present
+      dest: /etc/ntp.conf
+      insertafter: '^restrict ::1'
+      line: server 10.25.33.9
+            server 10.25.33.10
+            server 10.25.76.18
+            server 10.47.90.18
 
     - name: ensure ntpd is running and enabled
       service:
