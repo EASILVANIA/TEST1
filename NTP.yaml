@@ -3,13 +3,13 @@
   hosts: all
   tasks:
     - name: removing network ntp.conf file
-	  ansible.builtin.lineinfile:
+	    ansible.builtin.lineinfile:
 	    state: absent
 		  dest: /etc/ntp.conf
 		  regexp: '^network'
 
     - name: adding new line to ntp.conf
-      ansible.builtin.lineinfile
+      ansible.builtin.lineinfile:
 	    state: present
 		  dest: /etc/ntp.conf
 		  insertafter: '^restrict ::1'
