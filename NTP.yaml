@@ -6,7 +6,7 @@
       ansible.builtin.lineinfile:
         state: absent
         dest: /etc/ntp.conf
-        regexp: '^server'
+        regexp: '*^server'
 
     # - name: adding new line to ntp.conf
     #   ansible.builtin.lineinfile:
