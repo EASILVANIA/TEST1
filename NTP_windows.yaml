@@ -9,10 +9,10 @@
        win_shell: "w32tm /query /peers"
        register: NTP_peers
    
-      name: displaying config
+       name: displaying config
        ansible.builtin.debug:
          var: 'NTP_config'
  
-      name: displaying Peer
+       name: displaying Peer
        ansible.builtin.debug:
          var: 'NTP_peers'
