@@ -1,24 +1,24 @@
 ---
  - hosts: "{{ ip }}"
    tasks:
-    #  - name: Adding new NTP server
-    #    win_shell: "w32tm /config /update /manualpeerlist:"0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org" /syncfromflags:manual /reliable:yes"
+     - name: Adding new NTP server
+       win_shell: "w32tm /config /update /manualpeerlist:"0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org" /syncfromflags:manual"
 
-    #  - name: restarting ntp service
-    #    win_shell: "w32tm /resync /rediscover"
+     - name: restarting ntp service
+       win_shell: "w32tm /resync /rediscover"
 
-     - name: checking if NTP is already running
-       win_shell: "w32tm /query /source"
-       register: NTP_config
+    #  - name: checking if NTP is already running
+    #    win_shell: "w32tm /query /source"
+    #    register: NTP_config
 
-     - name: checking NTP Peer
-       win_shell: "w32tm /query /peers"
-       register: NTP_peers
+    #  - name: checking NTP Peer
+    #    win_shell: "w32tm /query /peers"
+    #    register: NTP_peers
 
-     - name: displaying config
-       ansible.builtin.debug:
-         var: 'NTP_config'
+    #  - name: displaying config
+    #    ansible.builtin.debug:
+    #      var: 'NTP_config'
  
-     - name: displaying Peer
-       ansible.builtin.debug:
-         var: 'NTP_peers'
+    #  - name: displaying Peer
+    #    ansible.builtin.debug:
+    #      var: 'NTP_peers'
