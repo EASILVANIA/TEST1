@@ -2,7 +2,7 @@
  - hosts: "{{ ip }}"
    tasks:
      - name: Adding new NTP server
-       win_shell: "w32tm /config /update /manualpeerlist:"0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org" /syncfromflags:manual"
+       win_shell: "w32tm /config /update /manualpeerlist: "0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org" /syncfromflags:manual"
 
      - name: restarting ntp service
        win_shell: "w32tm /resync /rediscover"
