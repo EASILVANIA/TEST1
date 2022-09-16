@@ -21,5 +21,5 @@
          script: | 
            'Add-DnsServerPrimaryZone -NetworkID "{{ ip }}" -ZoneFile "{{ dns_dev_zone_dns }}"'
 
-    - name: Create REverse DNS records
-      win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vm_name }}"
+    # - name: Create REverse DNS records
+    #   win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vm_name }}"
