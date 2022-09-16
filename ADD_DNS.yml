@@ -19,7 +19,7 @@
     - name: Create Reverse lookup zone
       ansible.windows.win_powershell: 
          script: | 
-           'Add-DnsServerPrimaryZone -NetworkID "{{ reverse_lookup_ip }}.0/24" -ZoneFile "{{ dns_dev_zone_ptr }}.dns"'
+           "Add-DnsServerPrimaryZone -NetworkID '{{ reverse_lookup_ip }}.0/24' -ZoneFile '{{ dns_dev_zone_ptr }}.dns'"
 
     # - name: Create REverse DNS records
     #   win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vm_name }}"
