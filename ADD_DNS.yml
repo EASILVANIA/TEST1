@@ -1,6 +1,5 @@
 ---
 - hosts: 192.168.80.5
-  become: true
   tasks:
     - name: adding DNS record
       win_shell: "dnscmd  . /recordadd {{ dns_dev_zone_fwd }} {{ vm_name }} A {{ ip }}"
@@ -18,6 +17,7 @@
         reverse_lookup_ip: "{{ ip_sections[0] }}.{{ ip_sections[1] }}.{{ ip_sections[2] }}"
 
     - name: Create Reverse lookup zone
+      become: true
       ansible.windows.win_powershell: 
          script: | 
            "Add-DnsServerPrimaryZone -NetworkID '{{ reverse_lookup_ip }}.0/24' -ZoneFile '{{ dns_dev_zone_ptr }}.dns'"
