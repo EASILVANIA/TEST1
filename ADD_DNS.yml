@@ -13,7 +13,7 @@
         dns_dev_zone_ptr: "{{ ip_sections[2] }}.{{ ip_sections[1] }}.{{ ip_sections[0] }}.in-addr.arpa"
     
     - name: Create Reverse lookup zone
-      win_powershell: 
+      ansible.windows.win_powershell: 
          script: | 
            'Add-DnsServerPrimaryZone -NetworkID "{{ ip }}" -ZoneFile "{{ dns_dev_zone_ptr }}"'
 
