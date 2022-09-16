@@ -14,12 +14,12 @@
     
     - name: Reverse Zone dns file
       ansible.builtin.set_fact:
-        dns_dev_zone_dns: "{{ ip_sections[2] }}.{{ ip_sections[1] }}.{{ ip_sections[0] }}.in-addr.arpa.dns"
+        reverse_lookup_ip: "{{ ip_sections[0] }}.{{ ip_sections[1] }}.{{ ip_sections[2] }}.0/24"
 
     - name: Create Reverse lookup zone
       ansible.windows.win_powershell: 
          script: | 
-           'Add-DnsServerPrimaryZone -NetworkID "{{ ip }}" -ZoneFile "{{ dns_dev_zone_dns }}"'
+           'Add-DnsServerPrimaryZone -NetworkID "{{ reverse_lookup_ip }}" -ZoneFile "{{ dns_dev_zone_ptr }}.dns"'
 
     # - name: Create REverse DNS records
     #   win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vm_name }}"
