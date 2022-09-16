@@ -11,6 +11,11 @@
     - name: DEV zone PTR
       ansible.builtin.set_fact:
         dns_dev_zone_ptr: "{{ ip_sections[2] }}.{{ ip_sections[1] }}.{{ ip_sections[0] }}.in-addr.arpa"
+    
+    - name: Create Reverse lookup zone
+      win_powershell: 
+         script: | 
+           'Add-DnsServerPrimaryZone -NetworkID "{{ ip }}" -ZoneFile "{{ dns_dev_zone_ptr }}"'
 
     - name: Create REverse DNS records
       win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vm_name }}"
