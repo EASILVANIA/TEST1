@@ -3,6 +3,13 @@
   tasks:
     - name: adding DNS record
       win_shell: "dnscmd  . /recordadd {{ dns_dev_zone_fwd }} {{ vm_name }} A {{ ip }}"
+      retries: 3
+      delay: 3
+      register: result
+      until: ("DNS_ERROR_RECORD_ALREADY_EXISTS" in result.stdout) or (result.rc == 0)
+      failed_when: >
+        ("DNS_ERROR_RECORD_ALREADY_EXISTS" not in result.stdout) and
+        (result.rc != 0)
 
     - name: IP Sections
       ansible.builtin.set_fact:
