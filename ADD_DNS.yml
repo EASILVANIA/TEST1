@@ -12,7 +12,7 @@
         (result.rc != 0)
 
     - name: Splitting ip and reversing order
-      tasks: 
+      tasks:
         - ansible.builtin.set_fact:
             ip_sections: "{{ ip.split('.') | list }}"
             dns_dev_zone_ptr: "{{ ip_sections[2] }}.{{ ip_sections[1] }}.{{ ip_sections[0] }}.in-addr.arpa"
