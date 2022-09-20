@@ -31,3 +31,10 @@
 
     - name: Create REverse DNS records
       win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vm_name }}"
+      retries: 3
+      delay: 3
+      register: result
+      until: ("DNS_ERROR_RECORD_ALREADY_EXISTS" in result.stdout) or (result.rc == 0)
+      failed_when: >
+        ("DNS_ERROR_RECORD_ALREADY_EXISTS" not in result.stdout) and
+        (result.rc != 0)
