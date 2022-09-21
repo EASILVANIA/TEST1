@@ -1,7 +1,7 @@
 ---
 - hosts: 192.168.80.5
-  tasks:
   gather_facts: no
+  tasks:
     - name: adding DNS record
       win_shell: "dnscmd  . /recordadd {{ dns_dev_zone_fwd }} {{ vm_name }} A {{ ip }}"
       retries: 3
