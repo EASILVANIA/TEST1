@@ -12,10 +12,16 @@
         ("DNS_ERROR_RECORD_ALREADY_EXISTS" not in result.stdout) and
         (result.rc != 0)
 
-    - name: Splitting ip and reversing order
-      ansible.builtin.set_fact: 
+    - name: IP Sections
+      ansible.builtin.set_fact:
         ip_sections: "{{ ip.split('.') | list }}"
+
+    - name: DEV zone PTR
+      ansible.builtin.set_fact:
         dns_dev_zone_ptr: "{{ ip_sections[2] }}.{{ ip_sections[1] }}.{{ ip_sections[0] }}.in-addr.arpa"
+    
+    - name: Reverse Zone dns file
+      ansible.builtin.set_fact:
         reverse_lookup_ip: "{{ ip_sections[0] }}.{{ ip_sections[1] }}.{{ ip_sections[2] }}"
 
     - name: Create Reverse lookup zone
