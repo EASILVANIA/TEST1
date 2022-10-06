@@ -1,0 +1,10 @@
+---
+- name: Ansible Split Examples
+  hosts: localhost
+  vars:
+    emails: ['hello@gritfy.com', 'steve@google.com', 'mark@ibm.com', 'dave@meta.com', 'admin@gritfy.in']
+  tasks:
+    - name: print only domain Names from Email IDs with Split
+      ansible.builtin.debug: 
+        msg: "{{ item | split('@') | last }}"
+      loop: "{{ emails }}"

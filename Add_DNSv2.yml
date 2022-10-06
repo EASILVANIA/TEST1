@@ -1,0 +1,36 @@
+---
+ - hosts: localhost
+   connection: local
+   gather_facts: false
+
+   vars:
+     dns_hostname: '192.168.80.5'
+     ip_add: {{ ip.split(',') }}
+     host_name: {{ vmname.split(',') }}
+    #  dns_username: dns-app-prod-admin1@GLOBETEL.COM
+
+
+   tasks:
+
+     # adding encrypted username and password via win_keys
+     - name: Include vars of
+       include_vars: DNSv2/DNSv2/file/win_key.yaml
+      #  no_log: true
+
+    # adding the DNS server to inventory
+     - name: Add AD/DNS Server to in-memory inventory
+       add_host:
+         host: "{{ dns_hostname }}"
+         group: dnsserver
+         ansible_connection: ssh
+         ansible_shell_type: cmd
+         ansible_port: 22
+         # ansible_winrm_transport: ntlm
+         ansible_user: "{{ dev_ad_user }}"
+         ansible_password: "{{ dev_ad_pass }}"
+         ansible_winrm_server_cert_validation: ignore
+         no_log: true
+
+ - hosts: dnsserver
+   roles:
+     - DNSv2/DNSv2
