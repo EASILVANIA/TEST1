@@ -9,9 +9,7 @@
      host_name: {{ vmname.split(',') }}
     #  dns_username: dns-app-prod-admin1@GLOBETEL.COM
 
-
    tasks:
-
      # adding encrypted username and password via win_keys
      - name: Include vars of
        include_vars: roles/DNSv2/file/win_key.yaml
@@ -32,5 +30,7 @@
          no_log: true
 
  - hosts: dnsserver
-   include_role:
-     name: DNSv2
+   tasks:
+     - name: including roles
+       include_role:
+         name: DNSv2
