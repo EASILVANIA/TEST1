@@ -1,8 +1,46 @@
 ---
-- name: testing ipconfig
-  win_shell: ipconfig /all
-  register: ipconfig_result
+# - name: testing ipconfig
+#   win_shell: ipconfig /all
+#   register: ipconfig_result
 
-- name: displaying IP address config
-  debug:
-    var: 'ipconfig_result.stdout_lines'
+# - name: displaying IP address config
+#   debug:
+#     var: 'ipconfig_result.stdout_lines'
+
+ - name: adding DNS record
+   win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ vmname }} A {{ ip }}"
+   retries: 3
+   delay: 3
+   register: result
+   until: ("DNS_ERROR_RECORD_ALREADY_EXISTS" in result.stdout) or (result.rc == 0)
+   failed_when: >
+      ("DNS_ERROR_RECORD_ALREADY_EXISTS" not in result.stdout) and
+      (result.rc != 0)
+
+   - name: IP Sections
+     ansible.builtin.set_fact:
+     ip_sections: "{{ ip.split('.') | list }}"
+
+   - name: DEV zone PTR
+     ansible.builtin.set_fact:
+       dns_dev_zone_ptr: "{{ ip_sections[2] }}.{{ ip_sections[1] }}.{{ ip_sections[0] }}.in-addr.arpa"
+    
+   - name: Reverse Zone dns file
+     ansible.builtin.set_fact:
+       reverse_lookup_ip: "{{ ip_sections[0] }}.{{ ip_sections[1] }}.{{ ip_sections[2] }}"
+
+   - name: Create Reverse lookup zone
+     become: true
+     ansible.windows.win_powershell: 
+        script: | 
+          Add-DnsServerPrimaryZone -NetworkID "{{ reverse_lookup_ip }}.0/24" -ZoneFile "{{ dns_dev_zone_ptr }}.dns"
+
+   - name: Create REverse DNS records
+     win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vmname }}"
+     retries: 3
+     delay: 3
+     register: result
+     until: ("DNS_ERROR_RECORD_ALREADY_EXISTS" in result.stdout) or (result.rc == 0)
+     failed_when: >
+       ("DNS_ERROR_RECORD_ALREADY_EXISTS" not in result.stdout) and
+       (result.rc != 0)

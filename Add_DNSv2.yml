@@ -11,7 +11,7 @@
 
      # adding encrypted username and password via win_keys
      - name: Include vars of
-       include_vars: file/win_keys.yml
+       include_vars: file/win_key.yaml
        no_log: true
 
     # adding the DNS server to inventory
@@ -31,4 +31,5 @@
  - hosts: dnsserver
    tasks:
      - name: test connection
-       win_ping:
+       include_role:
+         name: DNSv2
