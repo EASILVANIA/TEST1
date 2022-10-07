@@ -1,9 +1,7 @@
 ---
- - vars:
-     forward_zone: ansible.test.com
-
-
  - name: adding DNS record
+   vars:
+     forward_zone: ansible.test.com
    win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ vmname }} A {{ ip }}"
    retries: 3
    delay: 3
