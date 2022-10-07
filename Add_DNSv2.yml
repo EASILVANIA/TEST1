@@ -32,5 +32,4 @@
  - hosts: dnsserver
    tasks:
      - name: including roles
-       include_role:
-         name: DNSv2
+       include_role: roles/DNSv2
