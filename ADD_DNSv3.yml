@@ -7,6 +7,7 @@
      dns_hostname: '192.168.80.5'
      ip_add: {{ ip.split(',') }}
      host_name: {{ vmname.split(',') }}
+     forward_zone: 'ansible.test.com'
     #  dns_username: dns-app-prod-admin1@GLOBETEL.COM
 
    tasks:
@@ -31,7 +32,7 @@
 
    tasks:
      - name: adding DNS record
-       win_shell: "dnscmd  . /recordadd {{ dns_dev_zone_fwd }} {{ vm_name }} A {{ ip }}"
+       win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ vmname }} A {{ ip }}"
        retries: 3
        delay: 3
        register: result
@@ -59,7 +60,7 @@
             Add-DnsServerPrimaryZone -NetworkID "{{ reverse_lookup_ip }}.0/24" -ZoneFile "{{ dns_dev_zone_ptr }}.dns"
 
      - name: Create REverse DNS records
-       win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vm_name }}"
+       win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vmname }}"
        retries: 3
        delay: 3
        register: result
