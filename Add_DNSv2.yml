@@ -5,15 +5,14 @@
 
    vars:
      dns_hostname: '192.168.80.5'
-     ip_add: {{ ip.split(',') }}
-     host_name: {{ vmname.split(',') }}
-    #  dns_username: dns-app-prod-admin1@GLOBETEL.COM
+     dns_username: dns-app-prod-admin1@GLOBETEL.COM
 
    tasks:
+
      # adding encrypted username and password via win_keys
      - name: Include vars of
-       include_vars: roles/DNSv2/file/win_key.yaml
-      #  no_log: true
+       include_vars: file/win_keys.yml
+       no_log: true
 
     # adding the DNS server to inventory
      - name: Add AD/DNS Server to in-memory inventory
@@ -31,6 +30,5 @@
 
  - hosts: dnsserver
    tasks:
-    - name: Run post setup tasks
-      include_role:
-        name: DNSv2
+     - name: test connection
+       win_ping:
