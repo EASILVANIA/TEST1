@@ -4,11 +4,10 @@
    gather_facts: false
 
    vars:
-     dns_hostname: '192.168.80.5'
+     dns_hostname: 192.168.80.5
      ip_add: {{ ip.split(',') }}
      host_name: {{ vmname.split(',') }}
-     forward_zone: 'ansible.test.com'
-    #  dns_username: dns-app-prod-admin1@GLOBETEL.COM
+     forward_zone: ansible.test.com
 
    tasks:
      # adding encrypted username and password via win_keys
@@ -30,6 +29,7 @@
          ansible_winrm_server_cert_validation: ignore
          no_log: true
 
+ - hosts: dnsserver
    tasks:
      - name: adding DNS record
        win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ vmname }} A {{ ip }}"
