@@ -32,7 +32,7 @@
  - hosts: dnsserver
    tasks:
      - name: adding DNS record
-       win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ vmname }} A {{ ip }}"
+       win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ host_name }} A {{ ip_add }}"
        retries: 3
        delay: 3
        register: result
@@ -43,7 +43,7 @@
 
      - name: IP Sections
        ansible.builtin.set_fact:
-         ip_sections: "{{ ip.split('.') | list }}"
+         ip_sections: "{{ ip_add.split('.') | list }}"
 
      - name: DEV zone PTR
        ansible.builtin.set_fact:
@@ -60,7 +60,7 @@
             Add-DnsServerPrimaryZone -NetworkID "{{ reverse_lookup_ip }}.0/24" -ZoneFile "{{ dns_dev_zone_ptr }}.dns"
 
      - name: Create REverse DNS records
-       win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vmname }}"
+       win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ host_name }}"
        retries: 3
        delay: 3
        register: result
