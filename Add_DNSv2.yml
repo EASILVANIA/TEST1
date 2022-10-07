@@ -5,7 +5,7 @@
 
    vars:
      dns_hostname: '192.168.80.5'
-     dns_username: dns-app-prod-admin1@GLOBETEL.COM
+     forward_zone: ansible.test.com
 
    tasks:
 
