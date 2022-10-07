@@ -6,6 +6,9 @@
 # - name: displaying IP address config
 #   debug:
 #     var: 'ipconfig_result.stdout_lines'
+ - vars:
+     forward_zone: ansible.test.com
+
 
  - name: adding DNS record
    win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ vmname }} A {{ ip }}"
