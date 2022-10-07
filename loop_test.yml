@@ -3,8 +3,10 @@
   hosts: localhost
   vars:
     emails: ['hello@gritfy.com', 'steve@google.com', 'mark@ibm.com', 'dave@meta.com', 'admin@gritfy.in']
+    ip: ['192.168.80.1','192.168.80.2','192.168.80.3','192.168.80.4',]
   tasks:
     - name: print only domain Names from Email IDs with Split
       ansible.builtin.debug: 
-        msg: "{{ item | split('@') | last }}"
-      loop: "{{ emails }}"
+        msg: "{{ item | split(',') | list }}"
+      # loop: "{{ emails }}"
+      loop: ["{{ emails }}","{{ ip }}"]
