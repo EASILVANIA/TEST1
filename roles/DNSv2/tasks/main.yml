@@ -1,11 +1,4 @@
 ---
-# - name: testing ipconfig
-#   win_shell: ipconfig /all
-#   register: ipconfig_result
-
-# - name: displaying IP address config
-#   debug:
-#     var: 'ipconfig_result.stdout_lines'
  - vars:
      forward_zone: ansible.test.com
 
