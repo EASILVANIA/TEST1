@@ -31,5 +31,9 @@
 
  - hosts: dnsserver
    tasks:
-     - name: including roles
-       include_role: roles/DNSv2
+    - name: Run post setup tasks
+      include_role:
+        name: DNSv2
+
+    #  - name: including roles
+    #    include_role: roles/DNSv2
