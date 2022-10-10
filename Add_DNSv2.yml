@@ -34,4 +34,4 @@
      - name: test connection
        include_role:
          name: DNSv2
-      #  loop: ["{{ list_ip }}","{{ list_host }}"]
+       loop: ["{{ list_ip }}","{{ list_host }}"]
