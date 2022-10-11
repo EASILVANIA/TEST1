@@ -23,7 +23,7 @@
 #  - name: Reverse Zone dns file
 #    ansible.builtin.set_fact:
      reverse_lookup_ip: "{{ ip_sections[0] }}.{{ ip_sections[1] }}.{{ ip_sections[2] }}"
-   loop: ["{{ list_ip[(couter+1|int )] }}","{{ list_host[(couter+1|int )] }}"]
+   loop: ["{{ list_ip[(counter+1|int )] }}","{{ list_host[(counter+1|int )] }}"]
 
 
  - name: Create Reverse lookup zone
