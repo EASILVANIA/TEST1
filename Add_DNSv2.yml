@@ -34,7 +34,7 @@
        set_fact: 
          list_ip: "{{ ip.split(',')| list }}"
          list_host: "{{ vmname.split(',')| list }}" 
-     - name: test connection
+     - name: Adding the data to DNS server
        include_role:
          name: DNSv2
        loop: ["{{ list_ip }}","{{ list_host }}"]
