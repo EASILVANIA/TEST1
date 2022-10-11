@@ -3,6 +3,7 @@
    vars:
      forward_zone: ansible.test.com
    win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ list_host }} A {{ list_ip }}"
+   loop: ["{{ list_ip }}","{{ list_host }}"]
    retries: 3
    delay: 3
    register: result
@@ -13,15 +14,17 @@
 
  - name: IP Sections
    ansible.builtin.set_fact:
-     ip_sections: "{{ list_ip[].split('.') | list }}"
+     ip_sections: "{{ list_ip.split('.') | list }}"
 
- - name: DEV zone PTR
-   ansible.builtin.set_fact:
+#  - name: DEV zone PTR
+#    ansible.builtin.set_fact:
      dns_dev_zone_ptr: "{{ ip_sections[2] }}.{{ ip_sections[1] }}.{{ ip_sections[0] }}.in-addr.arpa"
     
- - name: Reverse Zone dns file
-   ansible.builtin.set_fact:
+#  - name: Reverse Zone dns file
+#    ansible.builtin.set_fact:
      reverse_lookup_ip: "{{ ip_sections[0] }}.{{ ip_sections[1] }}.{{ ip_sections[2] }}"
+   loop: ["{{ list_ip }}","{{ list_host }}"]
+
 
  - name: Create Reverse lookup zone
    become: true
@@ -39,4 +42,3 @@
      ("DNS_ERROR_RECORD_ALREADY_EXISTS" not in result.stdout) and
      (result.rc != 0)
 
-loop: ["{{ list_ip }}","{{ list_host }}"]
