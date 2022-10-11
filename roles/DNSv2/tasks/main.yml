@@ -14,6 +14,8 @@
       (result.rc != 0)
 
  - name: IP Sections
+   vars:
+     counter: 0
    ansible.builtin.set_fact:
      ip_sections: "{{ list_ip.split('.') | list }}"
 
