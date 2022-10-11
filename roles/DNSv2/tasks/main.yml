@@ -30,7 +30,7 @@
        Add-DnsServerPrimaryZone -NetworkID "{{ reverse_lookup_ip }}.0/24" -ZoneFile "{{ dns_dev_zone_ptr }}.dns"
 
  - name: Create REverse DNS records
-   win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vmname }}"
+   win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ list_host }}"
    retries: 3
    delay: 3
    register: result

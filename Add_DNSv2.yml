@@ -6,8 +6,7 @@
    vars:
      dns_hostname: '192.168.80.5'
      forward_zone: ansible.test.com
-     list_ip: "{{ ip.split(',')| list }}"
-     list_host: "{{ vmname.split(',')| list }}"      
+      
    tasks:
 
      # adding encrypted username and password via win_keys
@@ -31,6 +30,9 @@
 
  - hosts: dnsserver
    tasks:
+     - name: setting ansible_facts
+         list_ip: "{{ ip.split(',')| list }}"
+         list_host: "{{ vmname.split(',')| list }}" 
      - name: test connection
        include_role:
          name: DNSv2
