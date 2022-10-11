@@ -2,7 +2,7 @@
  - name: adding DNS record
    vars:
      forward_zone: ansible.test.com
-   win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ list_host }} A {{ list_ip }}"
+   win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ list_host[0] }} A {{ list_ip[0] }}"
    loop: ["{{ list_ip }}","{{ list_host }}"]
    retries: 3
    delay: 3
@@ -23,7 +23,7 @@
 #  - name: Reverse Zone dns file
 #    ansible.builtin.set_fact:
      reverse_lookup_ip: "{{ ip_sections[0] }}.{{ ip_sections[1] }}.{{ ip_sections[2] }}"
-   loop: ["{{ list_ip }}","{{ list_host }}"]
+   loop: ["{{ list_ip[(couter+1|int )] }}","{{ list_host[(couter+1|int )] }}"]
 
 
  - name: Create Reverse lookup zone
