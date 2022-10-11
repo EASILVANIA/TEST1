@@ -37,4 +37,4 @@
      - name: Adding the data to DNS server
        include_role:
          name: DNSv2
-       loop: ["{{ list_ip }}","{{ list_host }}"]
+      #  loop: ["{{ list_ip }}","{{ list_host }}"]

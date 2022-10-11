@@ -2,7 +2,7 @@
  - name: adding DNS record
    vars:
      forward_zone: ansible.test.com
-   win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ list_host[] }} A {{ list_ip[] }}"
+   win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ list_host }} A {{ list_ip }}"
    retries: 3
    delay: 3
    register: result
@@ -38,3 +38,5 @@
    failed_when: >
      ("DNS_ERROR_RECORD_ALREADY_EXISTS" not in result.stdout) and
      (result.rc != 0)
+
+- loop: ["{{ list_ip }}","{{ list_host }}"]
