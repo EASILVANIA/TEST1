@@ -31,6 +31,7 @@
  - hosts: dnsserver
    tasks:
      - name: setting ansible_facts
+       set_fact: 
          list_ip: "{{ ip.split(',')| list }}"
          list_host: "{{ vmname.split(',')| list }}" 
      - name: test connection
