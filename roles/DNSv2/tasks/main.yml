@@ -1,8 +1,9 @@
 ---
  - name: adding DNS record
+   ansible.builtin.set_fact:
+     counter: 0
    vars:
      forward_zone: ansible.test.com
-     counter: 0
    win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ list_host[counter] }} A {{ list_ip[counter] }}"
    loop: ["{{ list_ip }}","{{ list_host }}"]
    retries: 3
