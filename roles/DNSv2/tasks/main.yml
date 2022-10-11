@@ -39,4 +39,4 @@
      ("DNS_ERROR_RECORD_ALREADY_EXISTS" not in result.stdout) and
      (result.rc != 0)
 
-- loop: ["{{ list_ip }}","{{ list_host }}"]
+loop: ["{{ list_ip }}","{{ list_host }}"]
