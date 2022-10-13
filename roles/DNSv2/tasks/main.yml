@@ -1,9 +1,11 @@
 ---
- - name: adding DNS record
+ - name: declaring variables
    ansible.builtin.set_fact: 
      list_ip: "{{ ip.split(',')| list }}"
      list_host: "{{ vmname.split(',')| list }}"
      forward_zone: ansible.test.com
+
+ - name: adding DNS record
    win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ item.list_host }} A {{ item.list_ip }}"
    retries: 3
    delay: 3
@@ -15,7 +17,6 @@
   #  loop: ["{{ list_ip }}","{{ list_host }}"]
 
  - name: IP Sections
-   vars:
    ansible.builtin.set_fact:
      ip_sections: "{{ item.list_ip.split('.') | list }}"
 #  - name: DEV zone PTR
