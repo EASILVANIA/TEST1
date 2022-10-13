@@ -3,7 +3,7 @@
    vars:
      forward_zone: ansible.test.com
      counter: 0
-   win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ items.list_host }} A {{ item.list_ip }}"
+   win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ item.list_host }} A {{ item.list_ip }}"
    retries: 3
    delay: 3
    register: result
