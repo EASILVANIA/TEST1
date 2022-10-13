@@ -1,6 +1,5 @@
 ---
  - name: adding DNS record
-   vars:
    ansible.builtin.set_fact: 
      list_ip: "{{ ip.split(',')| list }}"
      list_host: "{{ vmname.split(',')| list }}"
