@@ -2,11 +2,20 @@
 - name: Ansible Split Examples
   hosts: localhost
   vars:
-    emails: ['hello@gritfy.com', 'steve@google.com', 'mark@ibm.com', 'dave@meta.com', 'admin@gritfy.in']
-    ip: ['192.168.80.1','192.168.80.2','192.168.80.3','192.168.80.4',]
+    email: ['hello@gritfy.com', 'steve@google.com', 'mark@ibm.com', 'dave@meta.com', 'admin@gritfy.in']
+    ip: ['192.168.80.1','192.168.80.2','192.168.80.3','192.168.80.4'] 
+ 
   tasks:
     - name: print only domain Names from Email IDs with Split
-      ansible.builtin.debug: 
-        msg: "{{ item | split(',') | list }}"
-      # loop: "{{ emails }}"
-      loop: ["{{ emails }}"]
+      ansible.builtin.set_fact:
+        email_list: "{{ email[0].split(',')| list }}" 
+        ip_list: "{{ ip[0].split(',')| list }}"
+
+    - name: displaying output variable
+      ansible.builtin.debug:
+        msg: "{{ item.email_list }} -- {{ item }}"
+        # msg: ["{{ item | split('@')| last }}","{{ ip }}"]
+        # - ip
+      loop: 
+        - "{{ email_list }}"
+        - " {{ ip_list }}"
