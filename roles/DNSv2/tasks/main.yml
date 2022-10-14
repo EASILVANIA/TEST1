@@ -17,7 +17,7 @@
   
  - name: IP Sections
    ansible.builtin.set_fact:
-     ip_sections: "{{ list_IP[counter].split('.') | list }}"
+     ip_sections: "{{ ip.split('.') | list }}"
 #  - name: DEV zone PTR
 #    ansible.builtin.set_fact:
      dns_dev_zone_ptr: "{{ ip_sections[2] }}.{{ ip_sections[1] }}.{{ ip_sections[0] }}.in-addr.arpa"  
