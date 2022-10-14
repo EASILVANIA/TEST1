@@ -1,8 +1,12 @@
 ---
+ - name: test 
+   ansible.builtin.set_fact:
+     list_IP: "{{ ip.split(',')| list}}"
+     list_VM:  "{{ vmname.split(',')| list }}"
  - name: adding DNS record
    vars:
      forward_zone: ansible.test.com
-   win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ vmname }} A {{ ip }}"
+   win_shell: "dnscmd  . /recordadd {{ forward_zone }} {{ list_VM[counter] }} A {{ list_IP[counter] }}"
    retries: 3
    delay: 3
    register: result
@@ -13,7 +17,7 @@
   
  - name: IP Sections
    ansible.builtin.set_fact:
-     ip_sections: "{{ ip[counter]('.') | list }}"
+     ip_sections: "{{ list_IP[counter]('.') | list }}"
 #  - name: DEV zone PTR
 #    ansible.builtin.set_fact:
      dns_dev_zone_ptr: "{{ ip_sections[2] }}.{{ ip_sections[1] }}.{{ ip_sections[0] }}.in-addr.arpa"  
@@ -26,7 +30,7 @@
      script: | 
        Add-DnsServerPrimaryZone -NetworkID "{{ reverse_lookup_ip }}.0/24" -ZoneFile "{{ dns_dev_zone_ptr }}.dns" 
  - name: Create REverse DNS records
-   win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ vmname[counter] }}"
+   win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ list_VM[counter] }}"
    retries: 3
    delay: 3
    register: result
