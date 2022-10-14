@@ -6,9 +6,7 @@
    vars:
      dns_hostname: '192.168.80.5'
      forward_zone: ansible.test.com
-     start_count: 0
-     no_host: "{{ vm_count }}"
-      
+
    tasks:
 
      # adding encrypted username and password via win_keys
@@ -31,6 +29,10 @@
          no_log: true
 
  - hosts: dnsserver
+   vars:
+     start_count: 0
+     no_host: "{{ vm_count }}"
+     
    tasks: 
      - name: Adding the data to DNS server
        include_role:
