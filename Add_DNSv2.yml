@@ -6,6 +6,8 @@
    vars:
      dns_hostname: '192.168.80.5'
      forward_zone: ansible.test.com
+     start_count: 0
+     no_host: "{{ vm_count }}"
       
    tasks:
 
