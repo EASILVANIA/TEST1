@@ -5,7 +5,6 @@
 
    vars:
      dns_hostname: '192.168.80.5'
-     forward_zone: ansible.test.com
 
    tasks:
 
@@ -32,7 +31,7 @@
    vars:
      start_count: 0
      no_host: "{{ vm_count }}"
-     
+
    tasks: 
      - name: Adding the data to DNS server
        include_role:
