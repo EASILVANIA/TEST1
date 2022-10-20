@@ -23,6 +23,10 @@
    ansible.builtin.set_fact:
      dns_dev_zone_ptr: "{{ ip_sections[2] }}.{{ ip_sections[1] }}.{{ ip_sections[0] }}.in-addr.arpa"
 
+ - name: normal IP
+   ansible.builtin.set_fact:
+     normal_lookup_ip: "{{ ip_sections[0] }}.{{ ip_sections[1] }}.{{ ip_sections[2] }}.{{ ip_sections[3] }}"
+
  - name: Reverse Zone dns file
    ansible.builtin.set_fact:
      reverse_lookup_ip: "{{ ip_sections[0] }}.{{ ip_sections[1] }}.{{ ip_sections[2] }}"
@@ -36,7 +40,7 @@
    win_shell: dnscmd . /zoneadd "{{ dns_dev_zone_ptr }}"  /primary /file "{{ dns_dev_zone_ptr }}.dns"
 
  - name: Create REverse DNS records
-   win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ ip_sections[3] }} PTR {{ list_VM[counter] }}"
+   win_shell: "dnscmd . /recordadd {{ dns_dev_zone_ptr }} {{ normal_lookup_ip }} PTR {{ list_VM[counter] }}"
    retries: 3
    delay: 3
    register: result
